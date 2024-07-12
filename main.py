@@ -11,9 +11,9 @@ from datetime import datetime, timedelta
 # yesterday = (datetime.now() - timedelta(2)).strftime('%d-%b-%Y').upper()
 # updated_xlsx_file = f"updated_companies {yesterday}.xlsx"
 
-EMAILS_PER_MINUTE = 1
-EMAILS_PER_HOUR = 60
-TIME_PER_EMAIL = 60  # Seconds per email
+EMAILS_PER_MINUTE = 2
+EMAILS_PER_HOUR = 120
+TIME_PER_EMAIL = 30  # Seconds per email
 
 def main():
     filtered_data = filter_xlsx(XLSX_FILE)
