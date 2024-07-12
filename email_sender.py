@@ -15,7 +15,7 @@ def send_email(to_email, company_name):
     msg = MIMEMultipart()
     msg['From'] = FROM_EMAIL
     msg['To'] = to_email
-    msg['Subject'] = f"Free domain + Hosting for {company_name}"
+    msg['Subject'] = f"Professional Website Development for {company_name}"
 
     # Add tracking pixel
     # encoded_email = urllib.parse.quote(to_email)

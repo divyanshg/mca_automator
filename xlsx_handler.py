@@ -14,6 +14,7 @@ def filter_xlsx(xlsx_file):
     print(f"Using file: {xlsx_file}")
     df = pd.read_excel(xlsx_file, header=1)
     yesterday = (datetime.now() - timedelta(1)).strftime('%d-%b-%Y').upper()
+    # print(yesterday)
     filtered_df = df[df['DATE OF INCORPORATION'] == yesterday]
     print(df)
     print(len(filtered_df))

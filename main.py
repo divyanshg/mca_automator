@@ -27,6 +27,7 @@ def main():
 
                 if company_data and 'emailAddress' in company_data:
                     email_address = company_data['emailAddress']
+                    # email_address = "manyabhati21@gmail.com"
                     send_email(email_address, company_data["company"])
                     # filtered_data.at[index, 'email'] = email_address
 
