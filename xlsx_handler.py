@@ -16,6 +16,5 @@ def filter_xlsx(xlsx_file):
     yesterday = (datetime.now() - timedelta(1)).strftime('%d-%b-%Y').upper()
     # print(yesterday)
     filtered_df = df[df['DATE OF INCORPORATION'] == yesterday]
-    print(df)
     print(len(filtered_df))
     return filtered_df

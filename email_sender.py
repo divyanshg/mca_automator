@@ -1,35 +1,38 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import urllib.parse
-from config import TEMPLATE_FILE, FROM_EMAIL, FROM_PASSWORD
+from config import TEMPLATE_FILE, SMTP_USER, SMTP_PASSWORD, SMTP_ENDPOINT, FROM_EMAIL
 
-def generateMail(company_name):
-    with open(TEMPLATE_FILE, 'r') as file:
-        body = file.read()
+# def generateMail(company_name):
+#     with open(TEMPLATE_FILE, 'r') as file:
+#         body = file.read()
 
-    return body.replace("{{company_name}}", company_name)
+#     return body.replace("{{company_name}}", company_name)
 
-def send_email(to_email, company_name):
-    body = generateMail(company_name)
+def send_email(to_email, body, subject, uid):
+    # body = generateMail(company_name)
     msg = MIMEMultipart()
     msg['From'] = FROM_EMAIL
     msg['To'] = to_email
-    msg['Subject'] = f"Professional Website Development for {company_name}"
+    msg['Subject'] = subject
 
     # Add tracking pixel
-    # encoded_email = urllib.parse.quote(to_email)
-    # tracking_pixel = f'<img src="https://pixel-server-377e.onrender.com/pixel?email={encoded_email}" width="1" height="1" style="display:none;">'
-    # body = body.replace("{{pixel_tracker}}", tracking_pixel)
+    tracking_pixel = f'<img src="http://localhost:3000/assets/{uid}" height="60" width="200" style="margin-left: -12px; margin-bottom: 16px; margin-top:24px;">'
+    body_with_tracker = body.replace("{{av_logo}}", tracking_pixel)
 
-    msg.attach(MIMEText(body, 'html'))
+    msg.attach(MIMEText(body_with_tracker, 'html'))
 
     try:
-        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server = smtplib.SMTP(SMTP_ENDPOINT, 587)
         server.starttls()
-        server.login(FROM_EMAIL, FROM_PASSWORD)
+        server.login(SMTP_USER, SMTP_PASSWORD)
         text = msg.as_string()
         server.sendmail(FROM_EMAIL, to_email, text)
         server.quit()
+
+        return {
+            "body": body.replace("{{av_logo}}", ""),
+            "subject": subject
+        }
     except Exception as e:
-        print(f"Failed to send email to {to_email}: {e}")
+        raise e
