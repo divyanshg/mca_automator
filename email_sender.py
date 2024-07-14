@@ -17,7 +17,7 @@ def send_email(to_email, body, subject, uid):
     msg['Subject'] = subject
 
     # Add tracking pixel
-    tracking_pixel = f'<img src="http://localhost:3000/assets/{uid}" height="60" width="200" style="margin-left: -12px; margin-bottom: 16px; margin-top:24px;">'
+    tracking_pixel = f'<img src="http://api.avyuktlabs.in:3001/assets/{uid}" height="60" width="200" style="margin-left: -12px; margin-bottom: 16px; margin-top:24px;">'
     body_with_tracker = body.replace("{{av_logo}}", tracking_pixel)
 
     msg.attach(MIMEText(body_with_tracker, 'html'))
